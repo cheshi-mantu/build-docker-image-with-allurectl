@@ -1,0 +1,34 @@
+name: Build and Push Docker image to GHCR
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch: 
+
+jobs:
+  push_to_ghcr:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write  # нужно для push в ghcr.io
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest .
+
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest
