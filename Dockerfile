@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 COPY ./allurectl /bin/allurectl
 
-RUN apt-get update && apt-get upgrade -y \
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y curl python3 python3-pip coreutils
 RUN pip3 install --no-cache-dir pytest allure-pytest
 
