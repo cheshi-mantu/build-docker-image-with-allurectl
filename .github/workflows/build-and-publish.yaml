@@ -17,13 +17,21 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: install and configure allurectl
+        uses: allure-framework/setup-allurectl@v1.0.0
+        with:
+          allure-endpoint: https://testing.testops.cloud
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: 276
+          allurectl-version: 2.15.1
+      
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.DEPLOY_TOKEN }}
 
       - name: Build image
         run: |
