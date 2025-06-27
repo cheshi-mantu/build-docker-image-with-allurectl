@@ -12,7 +12,7 @@ jobs:
 
     permissions:
       contents: read
-      packages: write  # нужно для push в ghcr.io
+      packages: write  
 
     steps:
       - name: Checkout repo
@@ -27,7 +27,9 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:latest .
+          docker build \
+            --build-arg ALLURECTL_PATH=/opt/hostedtoolcache/allurectl/2.15.1/amd64/allurectl \
+            -t ghcr.io/${{ github.repository }}:latest .  
 
       - name: Push image
         run: |
