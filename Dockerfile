@@ -10,4 +10,4 @@ RUN pip3 install --no-cache-dir pytest allure-pytest
 COPY . /app
 WORKDIR /app
 
-CMD ["/bin/allurectl", "watch", "--", "pytest", "test", "--allure-dir=allure-results"]
+CMD ["/bin/allurectl", "watch", "--", "pytest", "test", "--alluredir=allure-results"]
