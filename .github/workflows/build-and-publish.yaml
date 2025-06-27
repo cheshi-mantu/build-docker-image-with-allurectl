@@ -24,8 +24,8 @@ jobs:
           allure-token: ${{ secrets.ALLURE_TOKEN }}
           allure-project-id: 276
           allurectl-version: 2.15.1
-      
-
+      - name: where is allurectl
+        run: which allurectl    
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
