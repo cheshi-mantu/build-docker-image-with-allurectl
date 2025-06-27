@@ -4,9 +4,8 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y curl python3 python3-pip coreutils \
     && pip3 install --no-cache-dir pytest allure-pytest
 
-ARG ALLURECTL_PATH
-COPY ${ALLURECTL_PATH} /bin/allurectl
-RUN chmod +x /bin/allurectl
+COPY ./allurectl /bin/allurectl
+# RUN chmod +x /bin/allurectl
 
 COPY . /app
 WORKDIR /app
