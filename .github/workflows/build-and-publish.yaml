@@ -30,12 +30,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.DEPLOY_TOKEN }}
 
-      - name: Build image
-        run: |
-          docker build \
-            --build-arg ALLURECTL_PATH=/opt/hostedtoolcache/allurectl/2.15.1/amd64/allurectl \
-            -t ghcr.io/${{ github.repository_owner }}/py-allurectl:latest .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Push image
-        run: |
-          docker push ghcr.io/${{ github.repository_owner }}/py-allurectl:latest
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/py-allurectl:latest
+
