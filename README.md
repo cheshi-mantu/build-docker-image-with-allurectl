@@ -1,4 +1,4 @@
-# And example on how to build a docker image
+# An example on how to build a docker image
 
 Docker image
 
